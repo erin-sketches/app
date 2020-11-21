@@ -14,3 +14,4 @@
   import { DarkTheme } from './plotly-themes.js'
   ```
     * The former is trying to import a "default export" while the latter is trying to import a "named export". Not sure exactly what the distinction is
+* You can't use hooks in a class-based component :<

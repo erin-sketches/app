@@ -1,27 +1,47 @@
 import './style';
-import { Component } from 'preact';
+import { Component, createContext } from 'preact';
+import { useContext } from 'preact/hooks/src';
 import Plot from 'react-plotly.js';
 import { DarkTheme } from './plotly-themes.js';
 
+const DataContext = createContext();
+const DataProvider = DataContext.Provider;
+class DataMngr extends Component {
+	state = {
+		data: [
+			{
+			type: 'scatter',
+			mode: 'lines+points',
+			x: [1, 2, 3],
+			y: [2, 6, 3],
+			marker: {color: 'red'}
+			},
+			{
+			type: 'bar',
+			x: [1, 2, 3],
+			y: [2, 5, 3]
+			}
+		],
+		revision: 0
+	};
+
+	render() {
+		return (
+			<DataProvider
+			value={{
+				...this.state
+			}}>
+				{this.props.children}
+			</DataProvider>
+		)
+	};
+}
 
 class Plop extends Component {
+	static contextType = DataContext;
 	constructor(props) {
 		super(props);
 		this.state = {
-			data: [
-				{
-				type: 'scatter',
-				mode: 'lines+points',
-				x: [1, 2, 3],
-				y: [2, 6, 3],
-				marker: {color: 'red'}
-				},
-				{
-				type: 'bar',
-				x: [1, 2, 3],
-				y: [2, 5, 3]
-				}
-			],
 			layout: {
 				template: DarkTheme,
 				title: 'A Fancy Plot',
@@ -34,9 +54,10 @@ class Plop extends Component {
 	}
 
 	render() {
+		let ctx = this.context;
 		return (
 			<Plot
-				data={this.state.data}
+				data={ctx.data}
 				useResizeHandler={true}
 				layout={this.state.layout}
 				style={this.state.style}
@@ -54,7 +75,9 @@ export default class App extends Component {
 		return (
 			<div>
 				<h1>Hello, World!</h1>
-				<Plop />
+				<DataMngr>
+					<Plop />
+				</DataMngr>
 			</div>
 		);
 	}
