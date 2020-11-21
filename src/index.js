@@ -4,8 +4,7 @@ import { useContext } from 'preact/hooks/src';
 import Plot from 'react-plotly.js';
 import { DarkTheme } from './plotly-themes.js';
 
-const DataContext = createContext();
-const DataProvider = DataContext.Provider;
+const DataCtx = createContext();
 class DataMngr extends Component {
 	state = {
 		data: [
@@ -25,20 +24,44 @@ class DataMngr extends Component {
 		revision: 0
 	};
 
+	addData = () => {
+		this.state.data[0].x.push(Math.random()*10);
+		this.state.data[0].y.push(Math.random()*5);
+		this.setState({
+			data: [this.state.data[0], this.state.data[1]],
+			revision: this.state.revision + 1
+		});
+	};
+
 	render() {
 		return (
-			<DataProvider
+			<DataCtx.Provider
 			value={{
-				...this.state
+				...this.state,
+				addData: this.addData
 			}}>
 				{this.props.children}
-			</DataProvider>
+			</DataCtx.Provider>
 		)
 	};
 }
 
+const Button = (props) => {
+	return (
+		<DataCtx.Consumer>
+			{(ctx) => {
+				console.log(ctx)
+				let addData = ctx.addData;
+				return ( 
+					<button onClick={() => {addData()}}>Add data point to trace 0</button>
+				)
+			}}
+		</DataCtx.Consumer>
+	)
+}
+
 class Plop extends Component {
-	static contextType = DataContext;
+	static contextType = DataCtx;
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -55,11 +78,14 @@ class Plop extends Component {
 
 	render() {
 		let ctx = this.context;
+		let layout = this.state.layout;
+		layout.datarevision = ctx.revision;
 		return (
 			<Plot
 				data={ctx.data}
+				revision={ctx.revision}
 				useResizeHandler={true}
-				layout={this.state.layout}
+				layout={layout}
 				style={this.state.style}
 				frames={this.state.frames}
 				config={this.state.config}
@@ -76,6 +102,7 @@ export default class App extends Component {
 			<div>
 				<h1>Hello, World!</h1>
 				<DataMngr>
+					<Button />
 					<Plop />
 				</DataMngr>
 			</div>
