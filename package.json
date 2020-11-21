@@ -6,7 +6,7 @@
   "scripts": {
     "build": "preact build",
     "serve": "sirv build --port 8080 --cors --single",
-    "dev": "preact watch",
+    "dev": "export NODE_OPTIONS='--max-old-space-size=8192'; preact watch",
     "lint": "eslint src"
   },
   "eslintConfig": {
@@ -22,7 +22,12 @@
     "sirv-cli": "^1.0.3"
   },
   "dependencies": {
+    "plotly.js": "^1.57.1",
     "preact": "^10.1.0",
-    "preact-render-to-string": "^5.1.2"
+    "preact-render-to-string": "^5.1.2",
+    "react": "github:preact-compat/react#1.0.0",
+    "react-dom": "github:preact-compat/react-dom#1.0.0",
+    "react-ssr-prepass": "npm:preact-ssr-prepass@^1.0.1",
+    "react-plotly.js": "^2.5.0"
   }
 }
