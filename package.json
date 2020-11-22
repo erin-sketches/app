@@ -5,7 +5,7 @@
   "license": "MIT",
   "homepage": "https://erin-sketches.github.io/app/",
   "scripts": {
-    "build": "export NODE_OPTIONS='--max-old-space-size=8192'; preact build --no-prerender",
+    "build": "./build.sh",
     "deploy": "gh-pages -d build",
     "serve": "sirv build --port 8080 --cors --single",
     "dev": "export NODE_OPTIONS='--max-old-space-size=8192'; preact watch",

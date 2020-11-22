@@ -3,7 +3,8 @@ import { Component, createContext } from 'preact';
 import { useContext } from 'preact/hooks/src';
 // Use smol bundle instead
 //import Plot from 'react-plotly.js';
-import Plotly from 'plotly.js-basic-dist';
+//import Plotly from 'plotly-basic.js';
+var Plotly = require('plotly.js-basic-dist');
 import createPlotlyComponent from 'react-plotly.js/factory';
 const Plot = createPlotlyComponent(Plotly);
 
