@@ -16,3 +16,5 @@
     * The former is trying to import a "default export" while the latter is trying to import a "named export". Not sure exactly what the distinction is
 * You can't use hooks in a class-based component :<
 * https://github.com/Ibaslogic/react-context-api and https://ibaslogic.com/react-context-api/ used as reference for more complicated data storage/mutation in Context
+* ARGH https://github.com/plotly/plotly.js/issues/3518#issue-407139586
+    * Trying to use Webpack externals to get around this, but ... https://github.com/preactjs/preact-cli/issues/1213 ?

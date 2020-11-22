@@ -1,7 +1,12 @@
 import './style';
 import { Component, createContext } from 'preact';
 import { useContext } from 'preact/hooks/src';
-import Plot from 'react-plotly.js';
+// Use smol bundle instead
+//import Plot from 'react-plotly.js';
+import Plotly from 'plotly.js-basic-dist';
+import createPlotlyComponent from 'react-plotly.js/factory';
+const Plot = createPlotlyComponent(Plotly);
+
 import { DarkTheme } from './plotly-themes.js';
 
 const DataCtx = createContext();
