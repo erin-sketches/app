@@ -1,0 +1,18 @@
+html, body {
+	font: 14px/1.21 'Helvetica Neue', arial, sans-serif;
+	font-weight: 400;
+	--bkg-color: #121212;
+	--text-color-normal: hsl(210, 10%, 62%);
+}
+
+h1 {
+	text-align: center;
+}
+
+body {
+	background: var(--bkg-color);
+}
+
+h1, p {
+	color: var(--text-color-normal);
+}
