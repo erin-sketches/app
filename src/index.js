@@ -1,10 +1,7 @@
-import './style';
-import { Component, createContext } from 'preact';
-import { useContext } from 'preact/hooks/src';
+import { Component, createContext, render, h } from 'preact';
 // Use smol bundle instead
 //import Plot from 'react-plotly.js';
-//import Plotly from 'plotly-basic.js';
-var Plotly = require('plotly.js-basic-dist');
+import Plotly from 'plotly.js-basic-dist';
 import createPlotlyComponent from 'react-plotly.js/factory';
 const Plot = createPlotlyComponent(Plotly);
 
@@ -115,3 +112,8 @@ export default class App extends Component {
 		);
 	}
 }
+
+window.addEventListener('DOMContentLoaded', () => {
+	console.log(document.getElementById('app'));
+	render(<App />, document.getElementById('app'));
+});
